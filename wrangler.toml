@@ -1,0 +1,57 @@
+name = "worker-template"
+main = "src/index.ts"
+compatibility_date = "2023-05-20"
+
+kv_namespaces = [
+    { binding = "KV", id = "11111111111111111111111111111111", preview_id = "11111111111111111111111111111111"},
+]
+
+durable_objects.bindings = [
+    { name = "COUNTER", class_name = "Counter" }
+]
+
+[vars]
+ENVIRONMENT = "dev"
+
+[env.staging]
+name = "worker-template-staging"
+routes = [
+    { pattern = "worker-template-staging.broswen.com", custom_domain = true }
+]
+analytics_engine_datasets = [
+    { binding = "ANALYTICS", dataset = "worker-template-analytics-staging" }
+]
+kv_namespaces = [
+    { binding = "KV", id = "", preview_id = ""},
+]
+durable_objects.bindings = [
+    { name = "COUNTER", class_name = "Counter" }
+]
+[env.staging.vars]
+ENVIRONMENT = "staging"
+
+
+[env.production]
+name = "worker-template-production"
+routes = [
+    { pattern = "worker-template-production.broswen.com", custom_domain = true }
+]
+analytics_engine_datasets = [
+    { binding = "ANALYTICS", dataset = "worker-template-analytics-production" }
+]
+kv_namespaces = [
+    { binding = "KV", id = "", preview_id = ""},
+]
+durable_objects.bindings = [
+    { name = "COUNTER", class_name = "Counter" }
+]
+[env.production.vars]
+ENVIRONMENT = "production"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["Counter"]
+
+[miniflare]
+kv_persist = true
+

@@ -1,0 +1,32 @@
+{
+  "name": "worker-template",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230511.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "@vitest/ui": "^0.31.1",
+    "eslint": "^8.41.0",
+    "prettier": "2.8.8",
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.1",
+    "vitest-environment-miniflare": "^2.14.0",
+    "wrangler": "2.7.1"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev -l",
+    "build": "wrangler publish --dry-run --minify --outdir dist",
+    "publish:production": "wrangler publish -e production --var RELEASE:\"$(git rev-parse HEAD)\"",
+    "publish:staging": "wrangler publish -e staging --var RELEASE:\"$(git rev-parse HEAD)\"",
+    "test": "NODE_OPTIONS=--experimental-vm-modules vitest --dir src",
+    "test:ui": "vitest --ui --dir src",
+    "lint": "npx eslint . --ext .ts",
+    "format": "npx prettier --write ."
+  },
+  "dependencies": {
+    "itty-router": "^4.0.0-next.50",
+    "toucan-js": "^3.1.0",
+    "zod": "^3.21.4"
+  }
+}
