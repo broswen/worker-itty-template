@@ -4,7 +4,7 @@ import { error, IRequest } from "itty-router";
 export const COUNTER_ROUTE = "/counter/:id";
 
 export async function counterHandler(
-  request: WorkerRequest | IRequest
+  request: WorkerRequest
 ): Promise<Response> {
   const id = request.params["id"];
 

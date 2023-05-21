@@ -25,7 +25,7 @@
     "format": "npx prettier --write ."
   },
   "dependencies": {
-    "itty-router": "^4.0.0-next.50",
+    "itty-router": "^4.0.0-next.52",
     "toucan-js": "^3.1.0",
     "zod": "^3.21.4"
   }

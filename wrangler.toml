@@ -6,9 +6,9 @@ kv_namespaces = [
     { binding = "KV", id = "11111111111111111111111111111111", preview_id = "11111111111111111111111111111111"},
 ]
 
-durable_objects.bindings = [
-    { name = "COUNTER", class_name = "Counter" }
-]
+#durable_objects.bindings = [
+#    { name = "COUNTER", class_name = "Counter" }
+#]
 
 [vars]
 ENVIRONMENT = "dev"

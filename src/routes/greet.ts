@@ -1,12 +1,17 @@
-import { WorkerRequest } from "../interfaces";
-import { IRequest, json } from "itty-router";
+import { Env, WorkerRequest } from "../interfaces";
+import { json } from "itty-router";
+import { Toucan } from "toucan-js";
 
 export const GREET_ROUTE = "/greet";
 
 export async function greetHandler(
-  request: WorkerRequest | IRequest
+  request: WorkerRequest,
 ): Promise<Response> {
-  const name = request.query?.name;
+  let name = request.query?.name;
+  // use first value if multiple are specified
+  if (Array.isArray(name)) {
+    name = name[0];
+  }
   return json({
     message: `Hello ${name ? name : "world"}!`,
   });

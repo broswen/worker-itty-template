@@ -1,4 +1,4 @@
-import { Env, WorkerRequest } from "../interfaces";
+import { Env, buildRequest } from "../interfaces";
 import { greetHandler } from "./greet";
 import { describe, expect, it } from "vitest";
 
@@ -6,15 +6,7 @@ describe("greetHandler", () => {
   it("should return valid response", async () => {
     const ctx = new ExecutionContext();
     const env = getMiniflareBindings() as Env;
-    const req: WorkerRequest = {
-      params: {},
-      query: {},
-      req: new Request("https://example.com/greet"),
-      method: "GET",
-      url: "https://example.com/greet",
-      ctx,
-      env,
-    };
+    const req = buildRequest(new Request("https://example.com/greet"), env, ctx);
     const res = await greetHandler(req);
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ message: "Hello world!" });
@@ -22,17 +14,16 @@ describe("greetHandler", () => {
   it("should return valid response with query param", async () => {
     const ctx = new ExecutionContext();
     const env = getMiniflareBindings() as Env;
-    const req: WorkerRequest = {
-      params: {},
-      req: new Request("https://example.com/greet?name=brad"),
-      method: "GET",
-      url: "https://example.com/greet?name=brad",
-      ctx,
-      env,
-      query: {
-        name: "brad",
-      },
-    };
+    const req = buildRequest(new Request("https://example.com/greet?name=brad"), env, ctx);
+    const res = await greetHandler(req);
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ message: "Hello brad!" });
+  });
+
+  it("should return first query param", async () => {
+    const ctx = new ExecutionContext();
+    const env = getMiniflareBindings() as Env;
+    const req = buildRequest(new Request("https://example.com/greet?name=brad&lastname"), env, ctx);
     const res = await greetHandler(req);
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ message: "Hello brad!" });
