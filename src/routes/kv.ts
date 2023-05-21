@@ -28,6 +28,10 @@ export async function validateKvGetRequest(
 export async function kvGetHandler(
   request: KvGetRequest
 ): Promise<Response> {
+  request.env.ANALYTICS?.writeDataPoint({
+    indexes: [request.parsedBody.key],
+    blobs: [request.method]
+  })
   const value = await request.env.KV.get(request.parsedBody.key);
   if (value === null) {
     return error(404, "not found");
@@ -57,6 +61,10 @@ export async function validateKvPutRequest(
 export async function kvPutHandler(
   request: KvPutRequest
 ): Promise<Response> {
+  request.env.ANALYTICS?.writeDataPoint({
+    indexes: [request.parsedBody.key],
+    blobs: [request.method]
+  })
   await request.env.KV.put(request.parsedBody.key, request.parsedBody.value);
   return json({
     key: request.parsedBody.key,
