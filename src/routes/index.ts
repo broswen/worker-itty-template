@@ -8,11 +8,13 @@ import {
   validateKvPutRequest,
 } from "./kv";
 import { GREET_ROUTE, greetHandler } from "./greet";
+import { kvAuth } from "./auth";
 
 const router = Router();
 
 router
   .get("/ping", () => text("pong"))
+  .get("/auth/ping", kvAuth, () => text("authenticated pong"))
   .get(GREET_ROUTE, greetHandler)
   .get(KV_ROUTE, validateKvGetRequest, kvGetHandler)
   .put(KV_ROUTE_PUT, validateKvPutRequest, kvPutHandler)

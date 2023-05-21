@@ -7,7 +7,7 @@ export default defineConfig({
       bindings: {
         ENVIRONMENT: "miniflare",
       },
-      kvNamespaces: ["KV"],
+      kvNamespaces: ["KV", "AUTH"],
       // durableObjects: {
       //     COUNTER: "Counter"
       // }

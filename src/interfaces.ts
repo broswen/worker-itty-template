@@ -7,6 +7,7 @@ export interface Env {
   SENTRY_DSN?: string;
   ANALYTICS?: AnalyticsEngineDataset;
   KV: KVNamespace;
+  AUTH: KVNamespace;
   COUNTER: DurableObjectNamespace;
 }
 

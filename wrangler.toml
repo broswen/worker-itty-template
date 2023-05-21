@@ -4,6 +4,7 @@ compatibility_date = "2023-05-20"
 
 kv_namespaces = [
     { binding = "KV", id = "11111111111111111111111111111111", preview_id = "11111111111111111111111111111111"},
+    { binding = "AUTH", id = "11111111111111111111111111111111", preview_id = "11111111111111111111111111111111"},
 ]
 
 #durable_objects.bindings = [
@@ -23,6 +24,7 @@ analytics_engine_datasets = [
 ]
 kv_namespaces = [
     { binding = "KV", id = "86c10e78601d4e4c856be9a90957efc3", preview_id = ""},
+    { binding = "AUTH", id = "11111111111111111111111111111111", preview_id = ""},
 ]
 #durable_objects.bindings = [
 #    { name = "COUNTER", class_name = "Counter" }
@@ -41,6 +43,7 @@ analytics_engine_datasets = [
 ]
 kv_namespaces = [
     { binding = "KV", id = "", preview_id = ""},
+    { binding = "AUTH", id = "", preview_id = ""},
 ]
 #durable_objects.bindings = [
 #    { name = "COUNTER", class_name = "Counter" }
