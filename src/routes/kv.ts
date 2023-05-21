@@ -13,9 +13,14 @@ export async function validateKvGetRequest(
   request: KvGetRequest
 ): Promise<Response | undefined> {
   try {
-    const result = KvGetRequestSchema.safeParse({key: request.params["key"]});
+    const result = KvGetRequestSchema.safeParse({ key: request.params["key"] });
     if (!result.success) {
-      return error(400, result.error.issues.map(i => `${i.path.join(".")}: ${i.message}`).join(", "))
+      return error(
+        400,
+        result.error.issues
+          .map((i) => `${i.path.join(".")}: ${i.message}`)
+          .join(", ")
+      );
     }
     request.parsedBody = result.data;
     return undefined;
@@ -25,13 +30,11 @@ export async function validateKvGetRequest(
   }
 }
 
-export async function kvGetHandler(
-  request: KvGetRequest
-): Promise<Response> {
+export async function kvGetHandler(request: KvGetRequest): Promise<Response> {
   request.env.ANALYTICS?.writeDataPoint({
     indexes: [request.parsedBody.key],
-    blobs: [request.method]
-  })
+    blobs: [request.method],
+  });
   const value = await request.env.KV.get(request.parsedBody.key);
   if (value === null) {
     return error(404, "not found");
@@ -49,7 +52,12 @@ export async function validateKvPutRequest(
   try {
     const result = KvPutRequestSchema.safeParse(body);
     if (!result.success) {
-      return error(400, result.error.issues.map(i => `${i.path.join(".")}: ${i.message}`).join(", "))
+      return error(
+        400,
+        result.error.issues
+          .map((i) => `${i.path.join(".")}: ${i.message}`)
+          .join(", ")
+      );
     }
     request.parsedBody = result.data;
     return undefined;
@@ -58,13 +66,11 @@ export async function validateKvPutRequest(
   }
 }
 
-export async function kvPutHandler(
-  request: KvPutRequest
-): Promise<Response> {
+export async function kvPutHandler(request: KvPutRequest): Promise<Response> {
   request.env.ANALYTICS?.writeDataPoint({
     indexes: [request.parsedBody.key],
-    blobs: [request.method]
-  })
+    blobs: [request.method],
+  });
   await request.env.KV.put(request.parsedBody.key, request.parsedBody.value);
   return json({
     key: request.parsedBody.key,

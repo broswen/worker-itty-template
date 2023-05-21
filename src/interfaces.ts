@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Toucan } from "toucan-js";
-import { IRequest, IRequestStrict } from "itty-router";
+import { IRequestStrict } from "itty-router";
 export interface Env {
   ENVIRONMENT: string;
   RELEASE?: string;
@@ -10,8 +10,13 @@ export interface Env {
   COUNTER: DurableObjectNamespace;
 }
 
-export function buildRequest(request: Request, env: Env, ctx: ExecutionContext, sentry?: Toucan): WorkerRequest {
-  let temp: WorkerRequest = request as WorkerRequest;
+export function buildRequest(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+  sentry?: Toucan
+): WorkerRequest {
+  const temp: WorkerRequest = request as WorkerRequest;
   temp.req = request;
   temp.env = env;
   temp.ctx = ctx;
@@ -27,7 +32,7 @@ export type WorkerRequest = {
 } & IRequestStrict;
 
 export const KvGetRequestSchema = z.object({
-  key: z.string().min(1).max(128)
+  key: z.string().min(1).max(128),
 });
 
 export type KvGetRequest = WorkerRequest & {

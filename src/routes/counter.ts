@@ -1,5 +1,5 @@
 import { WorkerRequest } from "../interfaces";
-import { error, IRequest } from "itty-router";
+import { error } from "itty-router";
 
 export const COUNTER_ROUTE = "/counter/:id";
 
