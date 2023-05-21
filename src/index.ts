@@ -1,7 +1,8 @@
 import { handleRequest } from "./routes";
-import { Env, buildRequest } from "./interfaces";
+import { Env } from "./interfaces";
 import { Toucan } from "toucan-js";
 import { error } from "itty-router";
+import { buildRequest } from "./helpers";
 // export { Counter } from "./counter";
 
 export default {

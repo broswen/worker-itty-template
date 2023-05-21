@@ -5,6 +5,7 @@ import {
   KvPutRequest,
   KvPutRequestSchema,
 } from "../interfaces";
+import { formatZodError } from "../helpers";
 
 export const KV_ROUTE = "/kv/:key";
 export const KV_ROUTE_PUT = "/kv";
@@ -15,12 +16,7 @@ export async function validateKvGetRequest(
   try {
     const result = KvGetRequestSchema.safeParse({ key: request.params["key"] });
     if (!result.success) {
-      return error(
-        400,
-        result.error.issues
-          .map((i) => `${i.path.join(".")}: ${i.message}`)
-          .join(", ")
-      );
+      return error(400, formatZodError(result.error));
     }
     request.parsedBody = result.data;
     return undefined;
@@ -52,12 +48,7 @@ export async function validateKvPutRequest(
   try {
     const result = KvPutRequestSchema.safeParse(body);
     if (!result.success) {
-      return error(
-        400,
-        result.error.issues
-          .map((i) => `${i.path.join(".")}: ${i.message}`)
-          .join(", ")
-      );
+      return error(400, formatZodError(result.error));
     }
     request.parsedBody = result.data;
     return undefined;

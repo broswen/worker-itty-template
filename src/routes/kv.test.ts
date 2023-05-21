@@ -1,4 +1,4 @@
-import { Env, buildRequest, KvGetRequest, KvPutRequest } from "../interfaces";
+import { Env, KvGetRequest, KvPutRequest } from "../interfaces";
 import { describe, expect, it } from "vitest";
 import {
   kvGetHandler,
@@ -6,6 +6,7 @@ import {
   validateKvGetRequest,
   validateKvPutRequest,
 } from "./kv";
+import { buildRequest } from "../helpers";
 
 describe("kvGetHandler", () => {
   it("should return valid response", async () => {

@@ -1,6 +1,7 @@
-import { Env, buildRequest } from "../interfaces";
+import { Env } from "../interfaces";
 import { greetHandler } from "./greet";
 import { describe, expect, it } from "vitest";
+import { buildRequest } from "../helpers";
 
 describe("greetHandler", () => {
   it("should return valid response", async () => {
@@ -23,6 +24,9 @@ describe("greetHandler", () => {
       env,
       ctx
     );
+    req.query = {
+      name: "brad",
+    };
     const res = await greetHandler(req);
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ message: "Hello brad!" });
@@ -36,6 +40,9 @@ describe("greetHandler", () => {
       env,
       ctx
     );
+    req.query = {
+      name: ["brad", "lastname"],
+    };
     const res = await greetHandler(req);
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ message: "Hello brad!" });
