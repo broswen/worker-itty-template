@@ -6,6 +6,7 @@ export default defineConfig({
     environmentOptions: {
       bindings: {
         ENVIRONMENT: "miniflare",
+        JWT_SECRET: "secret"
       },
       kvNamespaces: ["KV", "AUTH"],
       // durableObjects: {

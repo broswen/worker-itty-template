@@ -13,6 +13,7 @@ kv_namespaces = [
 
 [vars]
 ENVIRONMENT = "dev"
+JWT_SECRET = "secret"
 
 [env.staging]
 name = "worker-template-staging"

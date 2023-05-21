@@ -8,6 +8,7 @@ export interface Env {
   ANALYTICS?: AnalyticsEngineDataset;
   KV: KVNamespace;
   AUTH: KVNamespace;
+  JWT_SECRET: string;
   COUNTER: DurableObjectNamespace;
 }
 
